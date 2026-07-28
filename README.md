@@ -1,133 +1,133 @@
 # 📈 PortfolioIQ
-### Financial Analytics & Portfolio Optimization using Python
+### Quantitative Portfolio Analysis & Optimization using Python
 
-PortfolioIQ is an end-to-end financial analytics and portfolio optimization project that transforms raw historical S&P 500 market data into meaningful investment insights.
+> "Learning Quantitative Finance one concept at a time."
 
-Rather than simply visualizing stock prices, PortfolioIQ aims to answer a portfolio manager's most important question:
+PortfolioIQ is my second major Data Science project after TRACKX.
 
-> **"How should capital be allocated to maximize returns while managing risk?"**
+While TRACKX focused on data cleaning and visualization, this project explores the mathematics behind investing, portfolio construction and quantitative finance.
 
-The project follows the complete workflow used in quantitative finance—from raw market data preprocessing to financial analytics and portfolio optimization using Modern Portfolio Theory and Monte Carlo Simulation.
+Instead of analysing individual stocks, PortfolioIQ studies how groups of stocks behave together and how statistical techniques can be used to build better investment portfolios.
 
----
+The goal wasn't simply to build a portfolio optimizer—it was to understand every concept before implementing it.
 
-# 🎯 Project Objective
-
-Institutional investors and portfolio managers analyze thousands of stocks every day.
-
-However, making investment decisions solely based on historical prices is ineffective.
-
-PortfolioIQ helps investors by:
-
-- Understanding historical market behaviour
-- Measuring risk and returns
-- Identifying relationships between companies
-- Comparing investment opportunities
-- Simulating thousands of possible portfolios
-- Finding portfolios with better risk-adjusted performance
-
-Ultimately, the project provides a data-driven foundation for building diversified investment portfolios.
+This project marks my introduction to Quantitative Finance, Modern Portfolio Theory (MPT) and Portfolio Optimization.
 
 ---
 
-# 📂 Dataset
+# 🎯 Project Objectives
 
-**Source**
+Through this project, I wanted to answer questions like:
 
-Historical S&P 500 Market Dataset
+- Which companies historically generated the best average returns?
+- Which companies are the most volatile?
+- How can investment risk actually be measured?
+- Why isn't the highest return always the best investment?
+- How are portfolios evaluated mathematically?
+- How does Monte Carlo Simulation help discover better portfolios?
+- How can thousands of portfolios be compared efficiently?
 
-The dataset contains historical daily trading information of more than **500 companies** listed in the S&P 500 index.
+Rather than copying formulas, I focused on understanding the intuition behind every calculation before writing the code.
 
-Each company contains five financial attributes:
+---
 
-- Open Price
-- High Price
-- Low Price
-- Close Price
-- Trading Volume
+# 📊 Dataset
 
-Original Dataset Size
+Historical S&P 500 Stock Dataset
 
-- **4166 Trading Days**
-- **503 Companies**
-- **2516 Columns**
+- 503 Companies
+- Daily Historical Stock Prices
+- Time Period: 2010 – Present
+- OHLCV Data
+  - Open
+  - High
+  - Low
+  - Close
+  - Volume
+
+### Original Dataset
+
+Rows : **4166**
+
+Columns : **2516**
 
 ---
 
 # 🛠 Project Workflow
 
-The project has been divided into multiple stages, closely following a real-world financial analytics pipeline.
+Raw Dataset
 
-```
-Raw Historical Market Data
-            │
-            ▼
-Data Cleaning & Preprocessing
-            │
-            ▼
-Financial Feature Engineering
-            │
-            ▼
-Exploratory Financial Analysis
-            │
-            ▼
-Risk & Return Analytics
-            │
-            ▼
-Portfolio Optimization
-            │
-            ▼
-Interactive Dashboard (Upcoming)
-```
+↓
 
----
+Data Cleaning
 
-# 🧹 Phase 1 — Data Preprocessing
+↓
 
-Raw financial datasets are rarely analysis-ready.
+Column Renaming
 
-The downloaded dataset contained:
+↓
 
-- Metadata rows
-- Generic column names
-- Mixed financial attributes
-- Missing values caused by companies entering the S&P 500 at different periods
+Missing Value Analysis
 
-To prepare the data for analysis:
+↓
 
-### ✔ Metadata Removal
+Exploratory Data Analysis
 
-Removed non-data rows containing ticker symbols and metadata.
+↓
 
----
+Daily Return Calculation
 
-### ✔ Dynamic Column Renaming
+↓
 
-The original dataset stored company data in the following format:
+Expected Returns
 
-```
-Close
-Close.1
-Close.2
-...
-```
+↓
 
-These generic names were transformed into meaningful financial features such as:
+Volatility Analysis
 
-```
-AAPL_Close
-MSFT_Close
-NVDA_Close
-GOOG_Close
-```
+↓
 
-This makes every company's financial data directly identifiable and easier to analyze.
+Sharpe Ratio
+
+↓
+
+Correlation Analysis
+
+↓
+
+Portfolio Mathematics
+
+↓
+
+Monte Carlo Portfolio Simulation
+
+↓
+
+Efficient Frontier
+
+↓
+
+Optimal Portfolio Selection
+
+↓
+
+Dashboard (Future Work)
 
 ---
 
-### ✔ Financial Attribute Separation
+# 📚 What I Learned
 
-Each company now contains:
+Instead of directly jumping into portfolio optimization, I broke the project into smaller learning stages.
+
+Every section taught me one new concept in quantitative finance before moving to the next.
+
+---
+
+# Stage 1 — Understanding the Dataset
+
+The original dataset contained over **2500 columns** representing stock prices of **503 companies**.
+
+Each company contained five features:
 
 - Open
 - High
@@ -135,236 +135,372 @@ Each company now contains:
 - Close
 - Volume
 
-allowing independent analysis of each market attribute.
+One of the first tasks was understanding how these columns were organised before beginning any analysis.
 
 ---
 
-### ✔ Missing Value Analysis
+# Stage 2 — Column Renaming
 
-A large number of missing values were discovered.
+The original dataset contained generic column names.
 
-Instead of removing them blindly, the data was investigated.
+I extracted company tickers and automatically renamed every feature into meaningful names such as
 
-The analysis revealed that most missing values belonged to companies that joined the S&P 500 years after 2010.
+```
+AAPL_Close
+AAPL_Open
+AAPL_High
+AAPL_Low
+AAPL_Volume
+```
 
-Therefore, these values represented **non-existent historical records** rather than corrupted data.
-
-This observation preserved important financial information while avoiding unnecessary data loss.
-
----
-
-# 📊 Phase 2 — Financial Analytics
-
-After cleaning the dataset, PortfolioIQ begins extracting meaningful financial insights.
+This significantly improved readability and made later analysis much easier.
 
 ---
 
-## Daily Returns
+# Stage 3 — Data Cleaning
 
-Instead of analyzing raw prices, daily percentage returns were calculated.
+The first two rows contained metadata instead of stock observations.
 
-Daily Returns describe how much a stock gained or lost compared to the previous trading day.
-
-This is a more reliable measure because stocks have different price ranges.
-
-Example:
-
-A ₹50 increase means something very different for:
-
-- ₹200 stock
-- ₹2000 stock
-
-Percentage returns standardize these movements.
+These rows were removed to create a clean numerical dataset suitable for analysis.
 
 ---
 
-## Average Daily Return
+# Stage 4 — Missing Value Analysis
 
-The average daily return was computed for every company.
+One of the most interesting findings of this project.
 
-Purpose:
+Initially the dataset contained over
 
-- Identify historically stronger performers
-- Compare long-term average growth
-- Rank companies
+**645,000 missing values**
+
+Instead of assuming the data was corrupted, I investigated why these values existed.
+
+I discovered that many companies joined the S&P 500 years after 2010.
+
+Examples include
+
+- HONA
+- FDXF
+- SNDK
+- Q
+
+Since these companies weren't part of the index during earlier years, their historical prices simply don't exist.
+
+This taught me an important lesson:
+
+> Missing values don't always indicate poor data quality—they often represent real-world business events.
 
 ---
 
-## Volatility Analysis
+# Why Closing Prices?
 
-Higher returns often come with higher risk.
+For this project I decided to use **Closing Prices**.
 
-PortfolioIQ measures risk using the standard deviation of daily returns.
+Closing prices represent the final market consensus after an entire trading session.
 
-Higher volatility indicates larger day-to-day price fluctuations.
+Most quantitative finance calculations use closing prices because they provide consistency when calculating
 
-Lower volatility generally represents more stable investments.
+- Daily Returns
+- Expected Returns
+- Portfolio Returns
+- Volatility
+- Risk Metrics
 
 ---
 
-## Correlation Analysis
+# Stage 5 — Daily Returns
 
-Diversification is one of the core principles of portfolio management.
+Raw prices alone don't provide meaningful comparisons.
 
-A correlation matrix was generated to measure how companies move relative to one another.
+Instead, prices were converted into percentage changes using
 
-The analysis successfully identified expected relationships such as:
+```python
+pct_change()
+```
+
+This transformed every stock into comparable daily returns regardless of its actual stock price.
+
+---
+
+# Stage 6 — Expected Returns
+
+The average daily return was calculated for every company.
+
+These values estimate each company's historical expected performance.
+
+This became the first building block for portfolio optimization.
+
+Concept learned:
+
+> Portfolio returns are simply weighted averages of expected returns.
+
+---
+
+# Stage 7 — Volatility
+
+Return alone doesn't describe an investment.
+
+Risk matters.
+
+Volatility was calculated using standard deviation to measure how much each stock fluctuates over time.
+
+Higher volatility generally indicates greater uncertainty and investment risk.
+
+---
+
+# Stage 8 — Sharpe Ratio
+
+A stock with higher returns isn't necessarily better.
+
+The Sharpe Ratio compares
+
+**Return**
+
+relative to
+
+**Risk**
+
+(Current implementation assumes Risk-Free Rate = 0.)
+
+This introduced me to one of the most widely used portfolio performance metrics.
+
+---
+
+# Stage 9 — Correlation Analysis
+
+One of my favourite parts of the project.
+
+Instead of analysing companies individually, I explored how different companies move relative to one another.
+
+Strong correlations discovered included
 
 - GOOG ↔ GOOGL
 - FOX ↔ FOXA
 - NWS ↔ NWSA
 
-demonstrating that companies belonging to the same organization or industry exhibit highly similar market behaviour.
+These results also helped validate that the calculations were correct.
 
-The correlation heatmap provides an intuitive visualization of market relationships.
-
----
-
-## Risk vs Return Analysis
-
-Every company was plotted using:
-
-- Risk (Volatility)
-- Average Daily Return
-
-This visualization highlights the classic investment trade-off:
-
-Higher returns generally require accepting higher levels of risk.
+The project also generated a complete correlation heatmap for all companies.
 
 ---
 
-## Sharpe Ratio
+# Stage 10 — Portfolio Mathematics
 
-PortfolioIQ evaluates investments using the Sharpe Ratio.
+This project shifted from analysing stocks individually to analysing entire portfolios.
 
-Rather than rewarding high returns alone, the Sharpe Ratio measures:
+I learned that every portfolio can simply be represented by investment weights.
 
-> **Return earned per unit of risk.**
+Example
 
-This allows investors to compare companies on a risk-adjusted basis instead of simply selecting those with the highest returns.
+```
+Apple        18%
+
+Microsoft    12%
+
+Google       10%
+
+...
+
+```
+
+The weights always sum to
+
+```
+100%
+```
+
+ensuring that all available capital is invested.
 
 ---
 
-## Top Performing Stocks
+# Portfolio Expected Return
 
-Stocks were ranked based on:
+Portfolio return is calculated as a weighted average of expected returns.
 
-- Average Returns
-- Volatility
+Mathematically
+
+```
+Portfolio Return
+
+=
+
+Weights × Expected Returns
+```
+
+Implemented using
+
+```python
+np.dot()
+```
+
+This was my first practical application of vector mathematics in finance.
+
+---
+
+# Portfolio Risk
+
+Portfolio risk depends on
+
+- Individual stock volatility
+- How stocks move relative to one another
+
+Instead of simply adding risks, I used the covariance matrix.
+
+Portfolio Risk is calculated using
+
+```
+√(WᵀΣW)
+```
+
+where
+
+- W = Portfolio Weights
+- Σ = Covariance Matrix
+
+This introduced me to one of the core equations of Modern Portfolio Theory.
+
+---
+
+# Stage 11 — Monte Carlo Portfolio Simulation
+
+After understanding portfolio mathematics, I implemented Monte Carlo Simulation.
+
+Instead of evaluating a single portfolio, the program randomly generated **10,000 different portfolios**.
+
+Each portfolio contained randomly assigned investment weights.
+
+For every portfolio, the program calculated
+
+- Expected Return
+- Portfolio Risk
 - Sharpe Ratio
 
-These rankings form the investment universe for the portfolio optimization stage.
+The simulation then compared every generated portfolio to discover better investment allocations.
+
+This was the first time I combined probability, statistics and programming into one complete financial model.
 
 ---
 
-# 🚀 Phase 3 — Portfolio Optimization *(In Progress)*
+# Stage 12 — Efficient Frontier
 
-Financial analysis alone cannot recommend how investments should be allocated.
+After evaluating thousands of portfolios, I visualized them using the Efficient Frontier.
 
-PortfolioIQ extends this analysis using portfolio optimization techniques.
+The graph compares
 
-Upcoming modules include:
+- Expected Return
+- Portfolio Risk
 
-- Monte Carlo Portfolio Simulation
+Each portfolio is colour-coded using its Sharpe Ratio.
+
+This visualization clearly demonstrates the trade-off between
+
+Higher Return
+
+vs
+
+Higher Risk
+
+One portfolio is highlighted as the optimal portfolio with the highest Sharpe Ratio.
+
+---
+
+# Stage 13 — Optimal Portfolio Selection
+
+Using the results of the Monte Carlo Simulation, the project identifies
+
+✅ Portfolio with Maximum Sharpe Ratio
+
+along with
+
+- Portfolio Return
+- Portfolio Risk
+- Portfolio Weights
+
+The best portfolio allocation is displayed in descending order for easy interpretation.
+
+---
+
+# 📈 Visualizations Created
+
+- Average Daily Returns
+- Top 10 Average Performing Companies
+- Volatility Analysis
+- Top 10 Sharpe Ratio
+- Risk vs Return Scatter Plot
+- Correlation Heatmap
 - Efficient Frontier
-- Maximum Sharpe Portfolio
-- Minimum Variance Portfolio
-- Optimal Portfolio Allocation
-
-These methods aim to identify portfolios that provide the best balance between expected return and investment risk.
 
 ---
 
-# 📈 Future Dashboard
-
-An interactive dashboard will allow users to:
-
-- Choose investment amount
-- Select risk tolerance
-- Generate optimized portfolios
-- Visualize portfolio allocation
-- Compare expected return and risk
-- Explore efficient frontier interactively
-
----
-
-# 🛠 Tech Stack
+# 🛠 Technologies Used
 
 - Python
-- Pandas
 - NumPy
+- Pandas
 - Matplotlib
-- Seaborn
 - Git
 - GitHub
+- VS Code
 
 ---
 
-# 📁 Project Structure
+# ✅ Current Features
 
-```
-PortfolioIQ/
+✔ Data Cleaning
 
-│
-├── data/
-│   ├── raw/
-│   └── processed/
-│
-├── outputs/
-│
-├── portfolio_preprocess.py
-├── eda.py
-├── portfolio_optimization.py
-├── dashboard.py (Upcoming)
-│
-├── README.md
-├── requirements.txt
-└── .gitignore
-```
+✔ Feature Engineering
+
+✔ Missing Value Analysis
+
+✔ Daily Returns
+
+✔ Expected Returns
+
+✔ Volatility Analysis
+
+✔ Sharpe Ratio
+
+✔ Correlation Analysis
+
+✔ Portfolio Mathematics
+
+✔ Portfolio Return
+
+✔ Portfolio Risk
+
+✔ Monte Carlo Portfolio Simulation
+
+✔ Efficient Frontier
+
+✔ Optimal Portfolio Selection
 
 ---
 
-# 📌 Current Progress
+# 🚀 Future Improvements
 
-## Completed
+Although the internship version of PortfolioIQ is complete, I plan to continue improving it.
 
-- Data Cleaning
-- Metadata Removal
-- Dynamic Column Renaming
-- Financial Feature Engineering
-- Daily Returns
-- Average Returns
-- Volatility Analysis
-- Correlation Analysis
-- Correlation Heatmap
-- Risk vs Return Analysis
-- Sharpe Ratio
-- Top Performing Stocks
+Upcoming features include
 
-## In Progress
-
-- Monte Carlo Simulation
-- Efficient Frontier
-- Portfolio Optimization
-
-## Planned
-
-- Streamlit Dashboard
-- Live Market Data Integration
+- Interactive Streamlit Dashboard
+- Portfolio Allocation Pie Chart
+- Company Search
+- Portfolio Comparison Tool
+- Real-Time Stock Prices using APIs
 - Portfolio Rebalancing
-- Sector-wise Portfolio Analytics
+- Sector-wise Portfolio Allocation
+- User Defined Portfolio Simulation
+- Risk-Free Rate Integration
+- Downloadable Portfolio Reports
 
 ---
 
-# 💡 Key Learning Outcomes
+# 💡 Reflection
 
-This project strengthened practical understanding of:
+PortfolioIQ taught me that quantitative finance isn't about predicting the market.
 
-- Financial Data Engineering
-- Exploratory Financial Analysis
-- Risk Measurement
-- Portfolio Diversification
-- Modern Portfolio Theory
-- Quantitative Finance Concepts
-- Data Visualization
-- Python for Financial Analytics
+It's about understanding uncertainty, measuring risk and making better decisions using mathematics, probability and data.
+
+More importantly, I realised that formulas become much easier once the intuition behind them is understood first.
+
+This project has given me a strong foundation in portfolio optimization, quantitative finance and financial data science, and I plan to continue expanding it into a complete portfolio analysis platform.
